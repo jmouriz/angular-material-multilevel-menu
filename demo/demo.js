@@ -1,7 +1,7 @@
 var demo = angular.module('Demo', ['ngMaterial', 'ngMdMultiLevelMenu', 'hc.marked']);
 
 demo.config(['menuProvider', function(menuProvider) {
-   menuProvider.title('Menú');
+   menuProvider.title('Main');
 
    menuProvider.items([{
       label: 'Item 1',
@@ -87,11 +87,7 @@ demo.controller('Demo', ['$scope', '$menu', '$mdSidenav', '$mdToast', function($
 
    $menu.select = function(link) {
       var toast = $mdToast.simple();
-      toast.textContent('Has elegido el enlace "' + link + '"');
+      toast.textContent('You have chosen item "' + link + '"');
       $mdToast.show(toast.hideDelay(3000));
    }
 }]);
-
-$(document).ready(function() {
-   $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
-});
