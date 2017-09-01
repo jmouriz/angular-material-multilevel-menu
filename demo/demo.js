@@ -1,4 +1,4 @@
-var demo = angular.module('Demo', ['ngMaterial', 'ngMdMultiLevelMenu']);
+var demo = angular.module('Demo', ['ngMaterial', 'ngMdMultiLevelMenu', 'hc.marked']);
 
 demo.config(['menuProvider', function(menuProvider) {
    menuProvider.title('Menú');
@@ -50,6 +50,22 @@ demo.config(['menuProvider', function(menuProvider) {
    }]);
 }]);
 
+demo.config(['markedProvider', function(markedProvider) {
+   markedProvider.setOptions({
+      gfm: true,
+      tables: true,
+      highlight: function(code, language) {
+         console.log(language);
+         if (!language) {
+            language = 'bash';
+         } else if (language == 'html') {
+            language = 'markup';
+         }
+         return Prism.highlight(code, Prism.languages[language]);
+      }
+   });
+}]);
+
 demo.controller('Demo', ['$scope', '$menu', '$mdSidenav', '$mdToast', function($scope, $menu, $mdSidenav, $mdToast) {
    $scope.breadcrumb = $menu.breadcrumb();
 
@@ -75,3 +91,7 @@ demo.controller('Demo', ['$scope', '$menu', '$mdSidenav', '$mdToast', function($
       $mdToast.show(toast.hideDelay(3000));
    }
 }]);
+
+$(document).ready(function() {
+   $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+});

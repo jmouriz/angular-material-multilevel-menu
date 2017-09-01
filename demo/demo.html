@@ -8,6 +8,7 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto" />
       <link rel="stylesheet" href="https://unpkg.com/angular-material@^1.1.4/angular-material.min.css" />
       <link rel="stylesheet" href="https://unpkg.com/angular-material-icons@^0.7.1/angular-material-icons.css" />
+      <link rel="stylesheet" href="https://unpkg.com/prismjs/themes/prism.css" />
       <link rel="stylesheet" href="angular-material-multilevel-menu.min.css" />
       <link rel="stylesheet" href="demo/demo.css" />
    </head>
@@ -29,90 +30,8 @@
             </md-panel>
          </md-sidenav>
          <md-content flex>
-            <md-card>
-               <md-card-title class="md-headline">mdMultiLevelMenu</md-card-title>
-               <md-card-content>
-                  <div class="md-title">Install</div>
-                  <p>Download the package:</p>
-                  <pre>
-yarn add angular-multilevel-menu
-                  </pre>
-                  <div class="md-title">Usage</div>
-                  <p>In your document head, include:</p>
-                  <pre>
-&lt;link rel="stylesheet" href="node_modules/angular-material-multilevel-menu/angular-material-multilevel-menu.min.css" /&gt;
-                  </pre>
-                  <p>Use the md-multi-level-menu where you wish:</p>
-                  <pre>
-&lt;md-multi-level-menu&gt;&lt;/md-multi-level-menu&gt;
-                  </pre>
-                  <p>Then, just before close body tag, include:</p>
-                  <pre>
-&lt;script src="node_modules/angular-material-multilevel-menu/angular-material-multilevel-menu.min.js"&gt;&lt;/script&gt;
-                  </pre>
-                  <p>Include the module in your application:</p>
-                  <pre>
-var application = angular.module('Application', ['ngMdMultiLevelMenu']);
-                  </pre>
-                  <p>Configure the items:</p>
-                  <pre>
-application.config(['menuProvider', function(menuProvider) {
-   menuProvider.items([{
-      label: 'Item 1',
-      icon: 'amazon',
-      items: [{
-         label: 'Item 1.1',
-         link: 'item-1-1',
-         icon: 'apple'
-      }, {
-         label: 'Item 1.2',
-         link: 'item-1-2',
-         icon: 'facebook'
-      }]
-   }, {
-      label: 'Item 2',
-      link: 'item-2',
-      icon: 'windows'
-   }, {
-      label: 'Item 3',
-      icon: 'google-plus',
-      items: [{
-         label: 'Item 3.1',
-         link: 'item-3-1',
-         icon: 'twitter'
-      }, {
-         label: 'Item 3.2',
-         icon: 'github-box',
-         items: [{
-            label: 'Item 3.2.1',
-            link: 'item-3-2-1',
-            icon: 'whatsapp'
-         }, {
-            label: 'Item 3.2.2',
-            icon: 'office',
-            items: [{
-               label: 'Item 3.2.2.1',
-               link: 'item-3-2-2-1',
-               icon: 'hangouts'
-            }]
-         }]
-      }]
-   }, {
-      label: 'Item 4',
-      link: 'item-4',
-      icon: 'linkedin'
-   }]);
-}]);
-                  </pre>
-                  <p>Finally, in your controller, configure the select callback of $menu service to handle the links:</p>
-                  <pre>
-application.controller('Controller', ['$menu', function($menu) {
-   $menu.select = function(link) {
-      console.log('You are going to', link);
-   }
-}]);
-                  </pre>
-               </md-card-content>
+            <md-card class="content">
+               <marked src="'README.md'"></marked>
             </md-card>
          </md-content>
       </md-content>
@@ -123,6 +42,12 @@ application.controller('Controller', ['$menu', function($menu) {
       <script src="https://unpkg.com/angular-animate@^1.6.5/angular-animate.min.js"></script>
       <script src="https://unpkg.com/angular-material@^1.1.4/angular-material.min.js"></script>
       <script src="https://unpkg.com/angular-material-icons@^0.7.1/angular-material-icons.min.js"></script>
+      <script src="https://unpkg.com/prismjs/prism.js" data-manual></script>
+      <script src="https://unpkg.com/prismjs/components/prism-javascript.min.js"></script>
+      <script src="https://unpkg.com/prismjs/components/prism-markup.min.js"></script>
+      <script src="https://unpkg.com/prismjs/components/prism-bash.min.js"></script>
+      <script src="https://unpkg.com/marked/lib/marked.js"></script>
+      <script src="https://unpkg.com/angular-marked/dist/angular-marked.min.js"></script>
       <script src="angular-material-multilevel-menu.min.js"></script>
       <script src="demo/demo.js"></script>
    </body>

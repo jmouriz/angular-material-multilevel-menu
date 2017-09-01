@@ -2,6 +2,11 @@ md-sidenav {
    position: static;
 }
 
-.md-title {
-   padding-top: 12px;
+.content {
+   padding: 16px;
+}
+
+pre {
+   word-wrap: break-word;
+   white-space: pre-wrap;
 }
