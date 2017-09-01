@@ -9,32 +9,10 @@
       <link rel="stylesheet" href="https://unpkg.com/angular-material@^1.1.4/angular-material.min.css" />
       <link rel="stylesheet" href="https://unpkg.com/angular-material-icons@^0.7.1/angular-material-icons.css" />
       <link rel="stylesheet" href="angular-material-multilevel-menu.min.css" />
+      <link rel="stylesheet" href="demo/demo.css" />
    </head>
-   <body ng-controller="Demo" ng-cloak>
-      <div style="max-width:320px;height:480px;margin:6px;border:1px solid gray">
-         <div class="menu-container" ng-init="reset()">
-            <md-list class="header">
-               <md-list-item>
-                  <md-truncate>
-                     <span ng-repeat="menu in stack">
-                        <a class="breadcrumb" href ng-click="back($index)">{{menu.item}}</a>
-                        <ng-md-icon icon="chevron_right"></ng-md-icon>
-                     </span>
-                     <span>{{current.item}}</span>
-                  </md-truncate>
-               </md-list-item>
-            </md-list>
-            <div class="menu {{animation}}">
-               <md-list class="body">
-                  <md-list-item ng-repeat="item in current.menu" ng-click="click(item)">
-                     <span flex>{{item.item}}</span>
-                     <ng-md-icon icon="chevron_right" ng-if="item.menu"></ng-md-icon>
-                  </md-list-item>
-               </md-list>
-            </div>
-         </div>
-      </div>
-      <!-- <md-multi-level-menu></md-multi-level-menu> -->
+   <body ng-cloak>
+      <md-multi-level-menu></md-multi-level-menu>
       <script src="https://unpkg.com/jquery@^3.2.1/dist/jquery.min.js"></script>
       <script src="https://unpkg.com/angular@^1.6.5/angular.min.js"></script>
       <script src="https://unpkg.com/angular-aria@^1.6.5/angular-aria.min.js"></script>
