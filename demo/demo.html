@@ -11,8 +11,112 @@
       <link rel="stylesheet" href="angular-material-multilevel-menu.min.css" />
       <link rel="stylesheet" href="demo/demo.css" />
    </head>
-   <body ng-cloak>
-      <md-multi-level-menu></md-multi-level-menu>
+   <body ng-controller="Demo" layout="column" ng-cloak>
+      <md-toolbar>
+         <md-truncate class="md-toolbar-tools">
+            <md-button class="md-icon-button" ng-click="toggle()" hide-gt-sm aria-label="Toogle Menu">
+               <ng-md-icon icon="{{icon}}"></ng-md-icon>
+            </md-button>
+            <h1>AngularJS Multilevel Menu Demo</h1>
+         </md-truncate>
+      </md-toolbar>
+      <md-content layout="row" flex>
+         <md-sidenav class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left">
+            <md-multi-level-menu></md-multi-level-menu>
+            <md-divider></md-divider>
+            <md-panel layout-margin layout-padding>
+               <md-checkbox ng-model="breadcrumb">Show breadcrumb</md-checkbox>
+            </md-panel>
+         </md-sidenav>
+         <md-content flex>
+            <md-card>
+               <md-card-title class="md-headline">mdMultiLevelMenu</md-card-title>
+               <md-card-content>
+                  <div class="md-title">Install</div>
+                  <p>Download the package:</p>
+                  <pre>
+yarn add angular-multilevel-menu
+                  </pre>
+                  <div class="md-title">Usage</div>
+                  <p>In your document head, include:</p>
+                  <pre>
+&lt;link rel="stylesheet" href="node_modules/angular-material-multilevel-menu/angular-material-multilevel-menu.min.css" /&gt;
+                  </pre>
+                  <p>Use the md-multi-level-menu where you wish:</p>
+                  <pre>
+&lt;md-multi-level-menu&gt;&lt;/md-multi-level-menu&gt;
+                  </pre>
+                  <p>Then, just before close body tag, include:</p>
+                  <pre>
+&lt;script src="node_modules/angular-material-multilevel-menu/angular-material-multilevel-menu.min.js"&gt;&lt;/script&gt;
+                  </pre>
+                  <p>Include the module in your application:</p>
+                  <pre>
+var application = angular.module('Application', ['ngMdMultiLevelMenu']);
+                  </pre>
+                  <p>Configure the items:</p>
+                  <pre>
+application.config(['menuProvider', function(menuProvider) {
+   menuProvider.items([{
+      label: 'Item 1',
+      icon: 'amazon',
+      items: [{
+         label: 'Item 1.1',
+         link: 'item-1-1',
+         icon: 'apple'
+      }, {
+         label: 'Item 1.2',
+         link: 'item-1-2',
+         icon: 'facebook'
+      }]
+   }, {
+      label: 'Item 2',
+      link: 'item-2',
+      icon: 'windows'
+   }, {
+      label: 'Item 3',
+      icon: 'google-plus',
+      items: [{
+         label: 'Item 3.1',
+         link: 'item-3-1',
+         icon: 'twitter'
+      }, {
+         label: 'Item 3.2',
+         icon: 'github-box',
+         items: [{
+            label: 'Item 3.2.1',
+            link: 'item-3-2-1',
+            icon: 'whatsapp'
+         }, {
+            label: 'Item 3.2.2',
+            icon: 'office',
+            items: [{
+               label: 'Item 3.2.2.1',
+               link: 'item-3-2-2-1',
+               icon: 'hangouts'
+            }]
+         }]
+      }]
+   }, {
+      label: 'Item 4',
+      link: 'item-4',
+      icon: 'linkedin'
+   }]);
+}]);
+                  </pre>
+                  <p>Finally, in your controller, configure the select callback of $menu service to handle the links:</p>
+                  <pre>
+application.controller('Controller', ['$menu', function($menu) {
+   $menu.select = function(link) {
+      console.log('You are going to', link);
+   }
+}]);
+                  </pre>
+               </md-card-content>
+            </md-card>
+         </md-content>
+      </md-content>
+      <script src="https://unpkg.com/jquery@^3.2.1/dist/jquery.min.js"></script>
       <script src="https://unpkg.com/jquery@^3.2.1/dist/jquery.min.js"></script>
       <script src="https://unpkg.com/angular@^1.6.5/angular.min.js"></script>
       <script src="https://unpkg.com/angular-aria@^1.6.5/angular-aria.min.js"></script>

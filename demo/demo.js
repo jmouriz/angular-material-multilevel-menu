@@ -1,28 +1,77 @@
 var demo = angular.module('Demo', ['ngMaterial', 'ngMdMultiLevelMenu']);
 
 demo.config(['menuProvider', function(menuProvider) {
-   menuProvider.set([{
-      item: 'Item 1',
-      menu: [{
-         item: 'Item 1'
+   menuProvider.title('Menú');
+
+   menuProvider.items([{
+      label: 'Item 1',
+      icon: 'amazon',
+      items: [{
+         label: 'Item 1.1',
+         link: 'item-1-1',
+         icon: 'apple'
       }, {
-         item: 'Item 2'
+         label: 'Item 1.2',
+         link: 'item-1-2',
+         icon: 'facebook'
       }]
    }, {
-      item: 'Item 2'
+      label: 'Item 2',
+      link: 'item-2',
+      icon: 'windows'
    }, {
-      item: 'Item 3',
-      menu: [{
-         item: 'Item 1'
+      label: 'Item 3',
+      icon: 'google-plus',
+      items: [{
+         label: 'Item 3.1',
+         link: 'item-3-1',
+         icon: 'twitter'
       }, {
-         item: 'Item 2',
-         menu: [{
-            item: 'Item 1'
+         label: 'Item 3.2',
+         icon: 'github-box',
+         items: [{
+            label: 'Item 3.2.1',
+            link: 'item-3-2-1',
+            icon: 'whatsapp'
          }, {
-            item: 'Item 2'
+            label: 'Item 3.2.2',
+            icon: 'office',
+            items: [{
+               label: 'Item 3.2.2.1',
+               link: 'item-3-2-2-1',
+               icon: 'hangouts'
+            }]
          }]
       }]
    }, {
-      item: 'Item 4'
+      label: 'Item 4',
+      link: 'item-4',
+      icon: 'linkedin'
    }]);
+}]);
+
+demo.controller('Demo', ['$scope', '$menu', '$mdSidenav', '$mdToast', function($scope, $menu, $mdSidenav, $mdToast) {
+   $scope.breadcrumb = $menu.breadcrumb();
+
+   $scope.toggle = function() {
+      $mdSidenav('left').toggle();
+      $scope.icon = $scope.icon == 'menu' ? 'close' : 'menu';
+   };
+
+   $mdSidenav('left', true).then(function(instance) {
+      $scope.icon = 'menu';
+      instance.onClose(function () {
+         $scope.icon = 'menu';
+      });
+   });
+
+   $scope.$watch('breadcrumb', function(value) {
+      $menu.breadcrumb(value);
+   });
+
+   $menu.select = function(link) {
+      var toast = $mdToast.simple();
+      toast.textContent('Has elegido el enlace "' + link + '"');
+      $mdToast.show(toast.hideDelay(3000));
+   }
 }]);

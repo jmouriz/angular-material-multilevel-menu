@@ -1,21 +1,20 @@
 <div class="menu-container" ng-init="reset()">
-   <md-list class="header">
-      <md-list-item>
-         <md-truncate>
+   <md-toolbar ng-if="breadcrumb">
+      <div class="md-toolbar-tools">
+         <md-truncate class="md-subhead">
             <span ng-repeat="menu in stack">
-               <a class="breadcrumb" href ng-click="back($index)">{{menu.item}}</a>
+               <a class="breadcrumb" href ng-click="back($index)">{{menu.label}}</a>
                <ng-md-icon icon="chevron_right"></ng-md-icon>
             </span>
-            <span>{{current.item}}</span>
+            <span>{{current.label}}</span>
          </md-truncate>
+      </div>
+   </md-toolbar>
+   <md-list class="body menu {{animation}}">
+      <md-list-item ng-repeat="item in current.items" ng-click="click(item)">
+         <ng-md-icon icon="{{item.icon}}" ng-if="item.icon"></ng-md-icon>
+         <span flex>{{item.label}}</span>
+         <ng-md-icon icon="chevron_right" ng-if="item.items"></ng-md-icon>
       </md-list-item>
    </md-list>
-   <div class="menu {{animation}}">
-      <md-list class="body">
-         <md-list-item ng-repeat="item in current.menu" ng-click="click(item)">
-            <span flex>{{item.item}}</span>
-            <ng-md-icon icon="chevron_right" ng-if="item.menu"></ng-md-icon>
-         </md-list-item>
-      </md-list>
-   </div>
 </div>
