@@ -11,7 +11,7 @@ View [online demo](https://jmouriz.github.io/angular-material-multilevel-menu/de
 Download the package:
 
 ```
-yarn add angular-multilevel-menu
+yarn add angular-material-multilevel-menu
 ```
 
 ## Usage

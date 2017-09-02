@@ -14,6 +14,7 @@
       <md-list-item ng-repeat="item in current.items" ng-click="click(item)">
          <ng-md-icon icon="{{item.icon}}" ng-if="item.icon"></ng-md-icon>
          <span flex>{{item.label}}</span>
+         <md-badge ng-if="item.badge">{{item.badge}}</md-badge>
          <ng-md-icon icon="chevron_right" ng-if="item.items"></ng-md-icon>
       </md-list-item>
    </md-list>

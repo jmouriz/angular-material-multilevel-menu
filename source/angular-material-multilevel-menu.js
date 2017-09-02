@@ -1,7 +1,7 @@
 (function(window, angular, undefined) {
    'use strict';
 
-   var module = angular.module('ngMdMultiLevelMenu', ['ngMaterial', 'ngAnimate', 'ngMdIcons']);
+   var module = angular.module('ngMdMultiLevelMenu', ['ngMaterial', 'ngAnimate', 'ngMdIcons', 'ngMdBadge']);
 
    module.provider('menu', function() {
 		this._breadcrumb = true;

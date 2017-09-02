@@ -13,7 +13,8 @@ demo.config(['menuProvider', function(menuProvider) {
       }, {
          label: 'Item 1.2',
          link: 'item-1-2',
-         icon: 'facebook'
+         icon: 'facebook',
+         badge: '12'
       }]
    }, {
       label: 'Item 2',
@@ -55,7 +56,6 @@ demo.config(['markedProvider', function(markedProvider) {
       gfm: true,
       tables: true,
       highlight: function(code, language) {
-         console.log(language);
          if (!language) {
             language = 'bash';
          } else if (language == 'html') {
