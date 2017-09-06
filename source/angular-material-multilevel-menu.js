@@ -23,29 +23,32 @@
       };
 
 		this.items = function(items) {
-         var route;
          try {
-            route = angular.module("ngRoute");
-         } catch(error) {
-            route = undefined;
-         }
-         if (route) {
-            var provider = $injector.get('$routeProvider');
+            var route = angular.module('ngRoute');
+            var router = $injector.get('$routeProvider');
             var walk = function(items) {
                for (var each in items) {
                   var item = items[each];
-                  if (item.view || item.controller) {
+                  if (item.link) {
                      var target = {
                         templateUrl: (item.view || item.link) + '.html'
                      };
                      if (item.controller) {
                         target.controller = item.controller;
                      }
-                     provider.when('/' + item.link, target);
+                     router.when('/' + item.link, target);
                   }
-                  walk(items[item].items);
+                  walk(item.items);
                }
             }
+            walk(items);
+            if (items.length) {
+               router.otherwise({
+                  redirectTo: '/' + items[0].link
+               });
+            }
+         } catch(error) {
+            // pass
          }
 			this._items = items;
 		};
@@ -66,16 +69,12 @@
          }
          menu.breadcrumb = breadcrumb;
       };
-
-      this.select = function(link) {
-         console.warn('You must provide $menu.select handler');
-      };
    }]);
 
-   module.controller('MenuController', ['$scope', '$animate', '$menu', 'menu', function($scope, $animate, $menu, menu) {
+   module.controller('MenuController', ['$scope', '$animate', '$location', '$menu', 'menu', function($scope, $animate, $location, $menu, menu) {
       $scope.select = function(item) {
          if (item.link) {
-            $menu.select(item.link);
+            $location.path(item.link);
          }
       };
    
