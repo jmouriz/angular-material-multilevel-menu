@@ -11,6 +11,10 @@
       </div>
    </md-toolbar>
    <md-list class="body menu {{animation}}">
+      <md-list-item ng-if="!breadcrumb && stack.length" ng-click="back()">
+         <ng-md-icon icon="chevron_left"></ng-md-icon>
+         <span flex>{{previous || current.label}}</span>
+      </md-list-item>
       <md-list-item ng-repeat="item in current.items" ng-click="click(item)">
          <ng-md-icon icon="{{item.icon}}" ng-if="item.icon"></ng-md-icon>
          <span flex>{{item.label}}</span>

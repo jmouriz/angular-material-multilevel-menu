@@ -2,6 +2,7 @@ var demo = angular.module('Demo', ['ngMaterial', 'ngMdMultiLevelMenu', 'hc.marke
 
 demo.config(['menuProvider', function(menuProvider) {
    menuProvider.title('Main');
+   menuProvider.back(); /* unset back label: use label of last selected item */
 
    menuProvider.items([{
       label: 'Item 1',

@@ -6,12 +6,14 @@
    module.provider('menu', function() {
 		this._breadcrumb = true;
 		this._title = 'Menu';
+		this._back = 'Back';
 		this._items = [];
 
       this.$get = function() {
          return {
             breadcrumb: this._breadcrumb,
             title: this._title,
+            back: this._back,
             items: this._items
          };
       };
@@ -26,6 +28,10 @@
 
 		this.title = function(title) {
 			this._title = title;
+		};
+
+		this.back = function(back) {
+			this._back = back;
 		};
    });
 
@@ -51,6 +57,7 @@
    
       $scope.reset = function() {
 		   $scope.breadcrumb = menu.breadcrumb;
+		   $scope.previous = menu.back;
          $scope.stack = [];
          $scope.current = {
             label: menu.title,
