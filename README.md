@@ -6,6 +6,11 @@ Material Multi-Level Menu for AngularJS
 
 View [online demo](https://jmouriz.github.io/angular-material-multilevel-menu/demo/demo.html)
 
+## Main features
+
+- Breadcrumb
+- Interface with angular-route if available
+
 ## Install
 
 Download the package:
