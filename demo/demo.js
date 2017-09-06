@@ -1,4 +1,4 @@
-var demo = angular.module('Demo', ['ngMaterial', 'ngMdMultiLevelMenu', 'hc.marked']);
+var demo = angular.module('Demo', ['ngMaterial', 'ngMdMultiLevelMenu', 'ngRoute', 'hc.marked']);
 
 demo.config(['menuProvider', function(menuProvider) {
    menuProvider.title('Main');

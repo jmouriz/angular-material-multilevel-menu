@@ -3,7 +3,7 @@
 
    var module = angular.module('ngMdMultiLevelMenu', ['ngMaterial', 'ngAnimate', 'ngMdIcons', 'ngMdBadge']);
 
-   module.provider('menu', function() {
+   module.provider('menu', ['$injector', function($injector) {
 		this._breadcrumb = true;
 		this._title = 'Menu';
 		this._back = 'Back';
@@ -23,6 +23,30 @@
       };
 
 		this.items = function(items) {
+         var route;
+         try {
+            route = angular.module("ngRoute");
+         } catch(error) {
+            route = undefined;
+         }
+         if (route) {
+            var provider = $injector.get('$routeProvider');
+            var walk = function(items) {
+               for (var each in items) {
+                  var item = items[each];
+                  if (item.view || item.controller) {
+                     var target = {
+                        templateUrl: (item.view || item.link) + '.html'
+                     };
+                     if (item.controller) {
+                        target.controller = item.controller;
+                     }
+                     provider.when('/' + item.link, target);
+                  }
+                  walk(items[item].items);
+               }
+            }
+         }
 			this._items = items;
 		};
 
@@ -33,7 +57,7 @@
 		this.back = function(back) {
 			this._back = back;
 		};
-   });
+   }]);
 
    module.service('$menu', ['menu', function(menu) {
       this.breadcrumb = function(breadcrumb) {
