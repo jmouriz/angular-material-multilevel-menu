@@ -3,6 +3,7 @@ var demo = angular.module('Demo', ['ngMaterial', 'ngMdMultiLevelMenu', 'ngRoute'
 demo.config(['menuProvider', function(menuProvider) {
    menuProvider.title('Main');
    menuProvider.back(); /* unset back label: use label of last selected item */
+   menuProvider.style(menuProvider.STYLE.ACCORDION);
 
    menuProvider.items([{
       label: 'Documentation',

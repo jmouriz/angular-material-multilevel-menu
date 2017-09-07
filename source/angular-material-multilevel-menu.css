@@ -27,4 +27,5 @@ a.breadcrumb:visited {
 
 md-list.body {
    padding-top: 0;
+   padding-bottom: 0;
 }
