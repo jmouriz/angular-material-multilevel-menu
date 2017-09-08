@@ -151,11 +151,19 @@
    }]);
    
    module.directive('mdMultiLevelMenu', [function() {
+      var scripts = angular.element('script'), script;
+      for (var each in scripts) {
+         script = scripts[each];
+         if (script.src && script.src.match(/angular-material-multilevel-menu(\.min)?\.js$/)) {
+            break;
+         }
+      }
+      var template = script.src.replace(/\.js$/, '.html');
       return {
          restrict: 'E',
          replace: true,
          controller: 'MenuController',
-         templateUrl: 'angular-material-multilevel-menu.min.html'
+         templateUrl: template
       };
    }]);
 })(window, window.angular, undefined);
