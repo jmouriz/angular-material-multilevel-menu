@@ -74,6 +74,7 @@ demo.config(['markedProvider', function(markedProvider) {
 
 demo.controller('Demo', ['$scope', '$menu', '$mdSidenav', function($scope, $menu, $mdSidenav) {
    $scope.breadcrumb = $menu.breadcrumb();
+   $scope.style = $menu.style();
 
    $scope.toggle = function() {
       $mdSidenav('left').toggle();
@@ -89,5 +90,9 @@ demo.controller('Demo', ['$scope', '$menu', '$mdSidenav', function($scope, $menu
 
    $scope.$watch('breadcrumb', function(value) {
       $menu.breadcrumb(value);
+   });
+
+   $scope.$watch('style', function(value) {
+      $menu.style(value);
    });
 }]);

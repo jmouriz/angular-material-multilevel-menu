@@ -20,5 +20,8 @@
     "angular-marked": "^1.2.2",
     "minify": "^3.0.1",
     "prismjs": "^1.6.0"
+  },
+  "optionalDependencies": {
+    "svg-morpheus": "^0.3.0"
   }
 }

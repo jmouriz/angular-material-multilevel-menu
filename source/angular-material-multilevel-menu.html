@@ -25,28 +25,25 @@
       </md-list>
    </div>
    <div ng-if="style == STYLE.ACCORDION">
+      <script type="text/ng-template" id="item">
+         <md-list-item ng-click="click(item)">
+            <ng-md-icon icon="{{item.icon}}" ng-if="item.icon"></ng-md-icon>
+            <span flex>{{item.label}}</span>
+            <md-badge ng-if="item.badge">{{item.badge}}</md-badge>
+            <ng-md-icon icon="{{item.expanded ? 'expand_less' : 'expand_more'}}" ng-if="item.items"></ng-md-icon>
+         </md-list-item>
+         <div flex ng-include="'submenu'" ng-if="item.items"></div>
+      </script>
       <script type="text/ng-template" id="submenu">
-         <md-list class="body menu" ng-show="item.expanded">
+         <md-list class="body submenu slide" ng-if="item.expanded">
             <div flex ng-repeat="item in item.items">
-               <md-list-item ng-click="click(item)">
-                  <ng-md-icon icon="{{item.icon}}" ng-if="item.icon"></ng-md-icon>
-                  <span flex>{{item.label}}</span>
-                  <md-badge ng-if="item.badge">{{item.badge}}</md-badge>
-                  <ng-md-icon icon="{{item.expanded ? 'expand_less' : 'expand_more'}}" ng-if="item.items"></ng-md-icon>
-               </md-list-item>
-               <div flex ng-include="'submenu'" ng-if="item.items"></div>
+               <div ng-include="'item'">
             </div>
          </md-list>
       </script>
       <md-list class="body menu">
          <div flex ng-repeat="item in current.items">
-            <md-list-item ng-click="click(item)">
-               <ng-md-icon icon="{{item.icon}}" ng-if="item.icon"></ng-md-icon>
-               <span flex>{{item.label}}</span>
-               <md-badge ng-if="item.badge">{{item.badge}}</md-badge>
-               <ng-md-icon icon="{{item.expanded ? 'expand_less' : 'expand_more'}}" ng-if="item.items"></ng-md-icon>
-            </md-list-item>
-            <div flex ng-include="'submenu'" ng-if="item.items"></div>
+            <div ng-include="'item'">
          </div>
       </md-list>
    </div>

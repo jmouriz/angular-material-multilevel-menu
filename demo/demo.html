@@ -27,7 +27,13 @@
             <md-multi-level-menu></md-multi-level-menu>
             <md-divider></md-divider>
             <md-panel layout-margin layout-padding>
-               <md-checkbox ng-model="breadcrumb">Show breadcrumb</md-checkbox>
+               <md-input-container layout-fill>
+                  <md-select ng-model="style" aria-label="style">
+                     <md-option ng-value="1">Replace</md-option>
+                     <md-option ng-value="2">Accordion</md-option>
+                  </md-select>
+               </md-input-container>
+               <md-checkbox ng-model="breadcrumb" ng-disabled="style == 2">Show breadcrumb</md-checkbox>
             </md-panel>
          </md-sidenav>
          <md-content ng-view flex></md-content>
@@ -41,6 +47,7 @@
       <script src="https://unpkg.com/angular-material-icons@^0.7.1/angular-material-icons.min.js"></script>
       <script src="https://unpkg.com/angular-material-badge@^1.1.0/angular-material-badge.min.js"></script>
       <script src="https://unpkg.com/angular-route@^1.6.6/angular-route.min.js"></script>
+      <script src="https://unpkg.com/svg-morpheus@^0.3.0/compile/minified/svg-morpheus.js"></script>
       <script src="https://unpkg.com/prismjs/prism.js" data-manual></script>
       <script src="https://unpkg.com/prismjs/components/prism-javascript.min.js"></script>
       <script src="https://unpkg.com/prismjs/components/prism-markup.min.js"></script>

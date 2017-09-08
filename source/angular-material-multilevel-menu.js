@@ -84,6 +84,9 @@
       };
 
       this.style = function(style) {
+         if (style == undefined) {
+            return menu.style;
+         }
          menu.style = style;
       }
    }]);
@@ -109,7 +112,7 @@
    
       $scope.click = function(item) {
          if (item.items) {
-            if ($scope.style == STYLE.REAPLCE) {
+            if ($scope.style == STYLE.REPLACE) {
                var widget = angular.element('md-list.menu');
                $animate.addClass(widget, 'left').then(function() {
                   $scope.stack.push($scope.current);
