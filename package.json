@@ -1,6 +1,6 @@
 {
   "name": "angular-material-multilevel-menu",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Material Multi-Level Menu for AngularJS",
   "main": "angular-material-multilevel-menu.js",
   "repository": "https://github.com/jmouriz/angular-material-multilevel-menu",
@@ -13,10 +13,10 @@
     "angular-material": "^1.1.4",
     "angular-material-badge": "^1.1.0",
     "angular-material-icons": "^0.7.1",
-    "angular-route": "^1.6.6",
     "jquery": "^3.2.1"
   },
   "devDependencies": {
+    "angular-route": "^1.6.6",
     "angular-marked": "^1.2.2",
     "minify": "^3.0.1",
     "prismjs": "^1.6.0"
