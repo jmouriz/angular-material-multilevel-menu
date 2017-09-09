@@ -10,7 +10,8 @@ demo.config(['menuProvider', function(menuProvider) {
       icon: 'import_contacts',
       link: 'demo/readme',
    }, {
-      label: 'Item 1',
+      id: 'item-1',
+      label: 'Item 1: 3',
       icon: 'amazon',
       items: [{
          label: 'Item 1.1',
@@ -110,6 +111,7 @@ demo.controller('Demo', ['$scope', '$menu', '$mdSidenav', function($scope, $menu
 
    $scope.$watch('count', function(value) {
       $menu.get('item-2').badge = $scope.count;
+      $menu.get('item-1').label = 'Item 1: ' + $scope.count;
    });
 
    $scope.$watch('breadcrumb', function(value) {
