@@ -33,7 +33,11 @@
                      <md-option ng-value="2">Accordion</md-option>
                   </md-select>
                </md-input-container>
-               <md-checkbox ng-model="breadcrumb" ng-disabled="style == 2">Show breadcrumb</md-checkbox>
+               <md-switch ng-model="breadcrumb" ng-disabled="style == 2">Show breadcrumb</md-switch>
+               <md-input-container layout-fill>
+                  <input type="number" ng-model="count" aria-label="count"></input>
+               </md-input-container>
+               <md-button class="md-raised md-primary" ng-click="test()" layout-fill>Dynamic test</md-button>
             </md-panel>
          </md-sidenav>
          <md-content ng-view flex></md-content>

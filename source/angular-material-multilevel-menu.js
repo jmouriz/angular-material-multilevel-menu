@@ -1,6 +1,19 @@
 (function(window, angular, undefined) {
    'use strict';
 
+   var walk = function(items, callback) {
+      for (var each in items) {
+         var item = items[each];
+         if (callback(item)) {
+            return item;
+         }
+         item = walk(item.items, callback);
+         if (item) {
+            return item;
+         }
+      }
+   };
+
    var module = angular.module('ngMdMultiLevelMenu', ['ngMaterial', 'ngAnimate', 'ngMdIcons', 'ngMdBadge']);
 
    module.constant('STYLE', {
@@ -33,22 +46,17 @@
 		this.items = function(items) {
          try {
             var router = $injector.get('$routeProvider');
-            var walk = function(items) {
-               for (var each in items) {
-                  var item = items[each];
-                  if (item.link) {
-                     var target = {
-                        templateUrl: (item.view || item.link) + '.html'
-                     };
-                     if (item.controller) {
-                        target.controller = item.controller;
-                     }
-                     router.when('/' + item.link, target);
+            walk(items, function(item) {
+               if (item.link) {
+                  var target = {
+                     templateUrl: (item.view || item.link) + '.html'
+                  };
+                  if (item.controller) {
+                     target.controller = item.controller;
                   }
-                  walk(item.items);
+                  router.when('/' + item.link, target);
                }
-            }
-            walk(items);
+            });
             if (items.length) {
                router.otherwise({
                   redirectTo: '/' + items[0].link
@@ -73,8 +81,10 @@
 		};
    }]);
 
-   module.service('$menu', ['menu', 'STYLE', function(menu, STYLE) {
+   module.service('$menu', ['menu', 'STYLE', '$rootScope', function(menu, STYLE, $rootScope) {
       this.STYLE = STYLE;
+
+      this.walk = walk;
 
       this.breadcrumb = function(breadcrumb) {
          if (breadcrumb == undefined) {
@@ -88,7 +98,14 @@
             return menu.style;
          }
          menu.style = style;
-      }
+         $rootScope.$broadcast('reset');
+      };
+
+      this.get = function(id) {
+         return walk(menu.items, function(item) {
+            return item.id && item.id == id;
+         });
+      };
    }]);
 
    module.controller('MenuController', ['$scope', '$animate', '$location', '$menu', 'menu', 'STYLE', function($scope, $animate, $location, $menu, menu, STYLE) {
@@ -148,6 +165,13 @@
             $animate.removeClass(widget, 'left');
          });
       };
+
+      $scope.$on('reset', function(event) {
+         walk(menu.items, function(item) {
+            item.expanded = false;
+         });
+         $scope.reset();
+      });
    }]);
    
    module.directive('mdMultiLevelMenu', [function() {

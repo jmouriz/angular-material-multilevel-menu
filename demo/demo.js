@@ -19,13 +19,14 @@ demo.config(['menuProvider', function(menuProvider) {
       }, {
          label: 'Item 1.2',
          link: 'demo/views/item-1-2',
-         icon: 'facebook',
-         badge: '12'
+         icon: 'facebook'
       }]
    }, {
+      id: 'item-2',
       label: 'Item 2',
       link: 'demo/views/item-2',
-      icon: 'windows'
+      icon: 'windows',
+      badge: 3
    }, {
       label: 'Item 3',
       icon: 'google-plus',
@@ -51,6 +52,7 @@ demo.config(['menuProvider', function(menuProvider) {
          }]
       }]
    }, {
+      id: 'item-4',
       label: 'Item 4',
       link: 'demo/views/item-4',
       icon: 'linkedin'
@@ -75,10 +77,28 @@ demo.config(['markedProvider', function(markedProvider) {
 demo.controller('Demo', ['$scope', '$menu', '$mdSidenav', function($scope, $menu, $mdSidenav) {
    $scope.breadcrumb = $menu.breadcrumb();
    $scope.style = $menu.style();
+   $scope.count = $menu.get('item-2').badge;
 
    $scope.toggle = function() {
       $mdSidenav('left').toggle();
       $scope.icon = $scope.icon == 'menu' ? 'close' : 'menu';
+   };
+
+   $scope.test = function() {
+      var item = $menu.get('item-4');
+      if (item.items) {
+         item.items = undefined;
+      } else {
+         item.items = [{
+            label: 'Item 4.1',
+            link: 'demo/views/item-4-1',
+            icon: 'favorite'
+         }, {
+            label: 'Item 4.2',
+            link: 'demo/views/item-4-2',
+            icon: 'grade'
+         }]
+      }
    };
 
    $mdSidenav('left', true).then(function(instance) {
@@ -86,6 +106,10 @@ demo.controller('Demo', ['$scope', '$menu', '$mdSidenav', function($scope, $menu
       instance.onClose(function () {
          $scope.icon = 'menu';
       });
+   });
+
+   $scope.$watch('count', function(value) {
+      $menu.get('item-2').badge = $scope.count;
    });
 
    $scope.$watch('breadcrumb', function(value) {
