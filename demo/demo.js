@@ -1,10 +1,6 @@
 var demo = angular.module('Demo', ['ngMaterial', 'ngMdMultiLevelMenu', 'ngRoute', 'hc.marked']);
 
 demo.config(['menuProvider', function(menuProvider) {
-   menuProvider.title('Main');
-   menuProvider.back(); /* unset back label: use label of last selected item */
-   menuProvider.style(menuProvider.STYLE.ACCORDION);
-
    menuProvider.items([{
       label: 'Documentation',
       icon: 'import_contacts',
@@ -101,6 +97,11 @@ demo.controller('Demo', ['$scope', '$menu', '$mdSidenav', function($scope, $menu
          }]
       }
    };
+
+   $menu.callback(function() {
+      console.log('ok');
+      $scope.toggle();
+   });
 
    $mdSidenav('left', true).then(function(instance) {
       $scope.icon = 'menu';

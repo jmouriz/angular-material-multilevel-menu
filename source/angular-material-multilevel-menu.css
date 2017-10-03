@@ -19,6 +19,10 @@
    clip-path: inset(0 100% 0 0);
 }
 
+.submenu {
+   margin-left: 16px;
+}
+
 .submenu.slide {
 	position: relative;
 	overflow: hidden;
