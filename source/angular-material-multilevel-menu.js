@@ -214,7 +214,7 @@
          templateUrl: template,
          link: function(scope, elemement, attributes) {
             scope.title = attributes.mdTitle || 'Main';
-            scope.back = attributes.mdBack;
+            scope.previous = attributes.mdBack;
             scope.breadcrumb = $boolean(attributes.mdBreadcrumb); 
             var style = undefined;
             for (var attribute in attributes) {

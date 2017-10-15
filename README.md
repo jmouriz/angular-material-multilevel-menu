@@ -30,7 +30,10 @@ In your document head, include:
 Use the md-multi-level-menu where you wish:
 
 ```html
-<md-multi-level-menu></md-multi-level-menu>
+<md-multi-level-menu md-title="Menu"
+                     md-back="Back"
+                     md-style="replace">
+</md-multi-level-menu>
 ```
 
 Then, just before close body tag, include:
@@ -93,6 +96,7 @@ application.config(['menuProvider', function(menuProvider) {
       label: 'Item 4',
       link: 'item-4',
       icon: 'linkedin'
+      hidden: false
    }]);
 }]);
 ```

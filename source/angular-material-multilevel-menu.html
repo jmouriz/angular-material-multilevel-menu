@@ -16,7 +16,7 @@
             <ng-md-icon icon="chevron_left"></ng-md-icon>
             <span flex>{{previous || current.label}}</span>
          </md-list-item>
-         <md-list-item ng-repeat="item in current.items" ng-click="click(item)">
+         <md-list-item ng-repeat="item in current.items" ng-click="click(item)" ng-if="!item.hidden">
             <ng-md-icon icon="{{item.icon}}" ng-if="item.icon"></ng-md-icon>
             <span flex>{{item.label}}</span>
             <md-badge ng-if="item.badge">{{item.badge}}</md-badge>
@@ -26,7 +26,7 @@
    </div>
    <div ng-if="style == STYLE.ACCORDION">
       <script type="text/ng-template" id="item">
-         <md-list-item ng-click="click(item)">
+         <md-list-item ng-click="click(item)" ng-if="!item.hidden">
             <ng-md-icon icon="{{item.icon}}" ng-if="item.icon"></ng-md-icon>
             <span flex>{{item.label}}</span>
             <md-badge ng-if="item.badge">{{item.badge}}</md-badge>
