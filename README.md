@@ -105,8 +105,8 @@ Finally, in your controller, configure the select callback of $menu service to h
 
 ```javascript
 application.controller('Controller', ['$menu', function($menu) {
-   $menu.select = function(link) {
-      console.log('You are going to', link);
-   }
+   $menu.callback(function(item) {
+      console.log('You are going to', item.link);
+   });
 }]);
 ```
