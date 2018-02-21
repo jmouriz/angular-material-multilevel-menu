@@ -98,8 +98,8 @@ demo.controller('Demo', ['$scope', '$menu', '$mdSidenav', function($scope, $menu
       }
    };
 
-   $menu.callback(function() {
-      console.log('ok');
+   $menu.callback(function(item) {
+      console.log('You are going to', item.link);
       $scope.toggle();
    });
 

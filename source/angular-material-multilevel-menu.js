@@ -134,7 +134,7 @@
          if (item.link) {
             $location.path(item.link);
             if (typeof menu.callback == 'function') {
-               menu.callback();
+               menu.callback(item);
             }
          }
       };
