@@ -1,3 +1,5 @@
+window.$debug = undefined;
+
 (function(window, angular, undefined) {
    'use strict';
 
@@ -18,7 +20,7 @@
       return (typeof variable === 'string' && variable === 'true');
    };
 
-   var module = angular.module('ngMdMultiLevelMenu', ['ngMaterial', 'ngAnimate', 'ngMdIcons', 'ngMdBadge']);
+   var module = angular.module('ngMdMultiLevelMenu', ['ngMaterial', 'ngAnimate', 'ngMdIcons']);
 
    module.constant('STYLE', {
       REPLACE: 1,
@@ -45,10 +47,6 @@
             items: $this._items,
             callback: $this._callback
          };
-      };
-
-      $this.breadcrumb = function(breadcrumb) {
-         $this._breadcrumb = breadcrumb;
       };
 
       $this.items = function(items) {
@@ -82,6 +80,10 @@
 
       $this.back = function(back) {
          $this._back = back;
+      };
+
+      $this.breadcrumb = function(breadcrumb) {
+         $this._breadcrumb = breadcrumb;
       };
 
       $this.style = function(style) {
@@ -141,12 +143,11 @@
    
       $scope.reset = function() {
          $scope.breadcrumb = menu.breadcrumb;
-         $scope.previous = menu.back;
          $scope.style = menu.style;
          $scope.STYLE = STYLE;
          $scope.stack = [];
          $scope.current = {
-            label: menu.title,
+            label: $scope.title,
             items: menu.items
          };
       };
@@ -198,7 +199,7 @@
       });
    }]);
    
-   module.directive('mdMultiLevelMenu', ['STYLE', function(STYLE) {
+   module.directive('mdMultiLevelMenu', ['STYLE', 'menu', function(STYLE, menu) {
       var scripts = angular.element('script'), script;
       for (var each in scripts) {
          script = scripts[each];
@@ -213,8 +214,8 @@
          controller: 'MenuController',
          templateUrl: template,
          link: function(scope, elemement, attributes) {
-            scope.title = attributes.mdTitle || 'Main';
-            scope.previous = attributes.mdBack;
+            scope.title = attributes.mdTitle || 'Menu';
+            scope.previous = attributes.mdBack || 'Back';
             scope.breadcrumb = $boolean(attributes.mdBreadcrumb); 
             var style = undefined;
             for (var attribute in attributes) {

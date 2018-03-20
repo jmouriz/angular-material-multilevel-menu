@@ -4,10 +4,10 @@
          <div class="md-toolbar-tools">
             <md-truncate class="md-subhead">
                <span ng-repeat="menu in stack">
-                  <a class="breadcrumb" href ng-click="back($index)">{{menu.label}}</a>
+                  <a class="breadcrumb" href ng-click="back($index)">{{menu.label || title}}</a>
                   <ng-md-icon icon="chevron_right"></ng-md-icon>
                </span>
-               <span>{{current.label}}</span>
+               <span>{{current.label || title}}</span>
             </md-truncate>
          </div>
       </md-toolbar>

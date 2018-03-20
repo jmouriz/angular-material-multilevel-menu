@@ -24,7 +24,12 @@
       </md-toolbar>
       <md-content layout="row" flex>
          <md-sidenav class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left">
-            <md-multi-level-menu md-breadcrumb="false" md-style-accordion></md-multi-level-menu>
+            <md-multi-level-menu
+               md-title="Main"
+               md-back="Previous"
+               md-breadcrumb="false"
+               md-style-accordion>
+            </md-multi-level-menu>
             <md-divider></md-divider>
             <md-panel layout="column" layout-margin layout-padding>
                <md-input-container layout-fill>
