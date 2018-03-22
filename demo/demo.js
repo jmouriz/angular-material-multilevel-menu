@@ -5,6 +5,7 @@ demo.config(['menuProvider', function(menuProvider) {
       label: 'Documentation',
       icon: 'import_contacts',
       link: 'demo/readme',
+      color: 'red'
    }, {
       id: 'item-1',
       label: 'Item 1: 3',
