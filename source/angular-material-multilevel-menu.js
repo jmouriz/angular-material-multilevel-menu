@@ -30,16 +30,18 @@ window.$debug = undefined;
    module.provider('menu', ['STYLE', '$injector', function(STYLE, $injector) {
       var $this = this;
 
+      $this._id = Math.random().toString(36).substr(2, 5);
       $this._breadcrumb = true;
       $this._title = 'Menu';
       $this._back = 'Back';
       $this._style = 1;
-      $this._items = [];
+      $this._items = {}; // [];
       $this._callback = undefined;
       $this.STYLE = STYLE;
       
       $this.$get = function() {
          return {
+            id: $this._id,
             breadcrumb: $this._breadcrumb,
             title: $this._title,
             back: $this._back,
@@ -49,7 +51,7 @@ window.$debug = undefined;
          };
       };
 
-      $this.items = function(items) {
+      $this.items = function(id, items) {
          try {
             var router = $injector.get('$routeProvider');
             walk(items, function(item) {
@@ -71,7 +73,11 @@ window.$debug = undefined;
          } catch (error) {
             // pass
          }
-         $this._items = items;
+         $this._items[id] = items;
+      };
+
+      $this.id = function(id) {
+         $this._id = id;
       };
 
       $this.title = function(title) {
@@ -125,81 +131,13 @@ window.$debug = undefined;
       };
 
       $this.get = function(id) {
-         return walk(menu.items, function(item) {
+         return walk(menu.items[menu.id], function(item) {
             return item.id && item.id == id;
          });
       };
    }]);
 
-   module.controller('MenuController', ['$scope', '$animate', '$location', '$menu', 'menu', 'STYLE', function($scope, $animate, $location, $menu, menu, STYLE) {
-      $scope.select = function(item) {
-         if (item.link) {
-            $location.path(item.link);
-            if (typeof menu.callback == 'function') {
-               menu.callback(item);
-            }
-         }
-      };
-   
-      $scope.reset = function() {
-         $scope.breadcrumb = menu.breadcrumb;
-         $scope.style = menu.style;
-         $scope.STYLE = STYLE;
-         $scope.stack = [];
-         $scope.current = {
-            label: $scope.title,
-            items: menu.items
-         };
-      };
-   
-      $scope.click = function(item) {
-         if (item.items) {
-            if ($scope.style == STYLE.REPLACE) {
-               var widget = angular.element('md-list.menu');
-               $animate.addClass(widget, 'left').then(function() {
-                  $scope.stack.push($scope.current);
-                  $scope.current = {
-                     label: item.label,
-                     items: item.items
-                  };
-                  widget.removeClass('ng-animate');
-                  widget.removeClass('left');
-                  widget.addClass('right');
-                  widget.addClass('ng-animate');
-                  $animate.removeClass(widget, 'right');
-               });
-            }
-            if ($scope.style == STYLE.ACCORDION) {
-               item.expanded = !item.expanded;
-            }
-         }
-         $scope.select(item);
-      };
-   
-      $scope.back = function(index) {
-         var left = $scope.stack.length - index;
-         var widget = angular.element('md-list.menu');
-         $animate.addClass(widget, 'right').then(function() {
-            do var previous = $scope.stack.pop();
-            while (--left);
-            $scope.current = previous;
-            widget.removeClass('ng-animate');
-            widget.removeClass('right');
-            widget.addClass('left');
-            widget.addClass('ng-animate');
-            $animate.removeClass(widget, 'left');
-         });
-      };
-
-      $scope.$on('reset', function(event) {
-         walk(menu.items, function(item) {
-            item.expanded = false;
-         });
-         $scope.reset();
-      });
-   }]);
-   
-   module.directive('mdMultiLevelMenu', ['STYLE', 'menu', function(STYLE, menu) {
+   module.directive('mdMultiLevelMenu', ['$animate', '$location', '$menu', 'menu', 'STYLE', function($animate, $location, $menu, menu, STYLE) {
       var scripts = angular.element('script'), script;
       for (var each in scripts) {
          script = scripts[each];
@@ -211,24 +149,104 @@ window.$debug = undefined;
       return {
          restrict: 'E',
          replace: true,
-         controller: 'MenuController',
-         templateUrl: template,
-         link: function(scope, elemement, attributes) {
-            scope.title = attributes.mdTitle || 'Menu';
-            scope.previous = attributes.mdBack || 'Back';
-            scope.breadcrumb = $boolean(attributes.mdBreadcrumb); 
-            var style = undefined;
-            for (var attribute in attributes) {
-               if (attribute.startsWith('mdStyle')) {
-                  style = attribute.replace(/^mdStyle/, '').toUpperCase();
-                  break;
+         controller: function($scope, $element) {
+            var $this = this;
+
+            $scope.select = function(item) {
+               if (item.link) {
+                  $location.path(item.link);
                }
-            }
-            if (style) {
-               if (STYLE[style]) {
-                  scope.style = STYLE[style];
-               } else {
-                  console.warn('unknown style', style);
+               if (typeof menu.callback == 'function') {
+                  menu.callback(item);
+               }
+            };
+         
+            $scope.reset = function() {
+               console.log('stored id:', $scope.id);
+               $scope.breadcrumb = menu.breadcrumb;
+               $scope.style = menu.style;
+               $scope.STYLE = STYLE;
+               $scope.stack = [];
+               $scope.current = {
+                  label: $scope.title,
+                  items: menu.items[$scope.id]
+               };
+            };
+         
+            $scope.click = function(item) {
+               console.log($scope.id);
+               if (item.items) {
+                  if ($scope.style == STYLE.REPLACE) {
+                     var widget = angular.element('md-list.menu#' + $scope.id);
+                     $animate.addClass(widget, 'left').then(function() {
+                        $scope.stack.push($scope.current);
+                        $scope.current = {
+                           label: item.label,
+                           items: item.items
+                        };
+                        widget.removeClass('ng-animate');
+                        widget.removeClass('left');
+                        widget.addClass('right');
+                        widget.addClass('ng-animate');
+                        $animate.removeClass(widget, 'right');
+                     });
+                  }
+                  if ($scope.style == STYLE.ACCORDION) {
+                     item.expanded = !item.expanded;
+                  }
+               }
+               $scope.select(item);
+            };
+         
+            $scope.back = function(index) {
+               var left = $scope.stack.length - index;
+               var widget = angular.element('md-list.menu#' + $scope.id);
+               $animate.addClass(widget, 'right').then(function() {
+                  do var previous = $scope.stack.pop();
+                  while (--left);
+                  $scope.current = previous;
+                  widget.removeClass('ng-animate');
+                  widget.removeClass('right');
+                  widget.addClass('left');
+                  widget.addClass('ng-animate');
+                  $animate.removeClass(widget, 'left');
+               });
+            };
+      
+            $scope.$on('reset', function(event) {
+               walk(menu.items[menu.id], function(item) {
+                  item.expanded = false;
+               });
+               $scope.reset();
+            });
+         },
+         templateUrl: template,
+         scope: {},
+         link: {
+            pre: function(scope, element, attributes, controller) {
+               console.log('link', attributes.id);
+               scope.id = attributes.id || Math.random().toString(36).substr(2, 5);
+               scope.title = attributes.mdTitle || 'Menu';
+               scope.previous = attributes.mdBack || 'Back';
+               scope.breadcrumb = $boolean(attributes.mdBreadcrumb); 
+               //controller.id = attributes.id || Math.random().toString(36).substr(2, 5);
+               //controller.title = attributes.mdTitle || 'Menu';
+               //controller.previous = attributes.mdBack || 'Back';
+               //controller.breadcrumb = $boolean(attributes.mdBreadcrumb); 
+               var style = undefined;
+               for (var attribute in attributes) {
+                  if (attribute.startsWith('mdStyle')) {
+                     style = attribute.replace(/^mdStyle/, '').toUpperCase();
+                     break;
+                  }
+               }
+               if (style) {
+                  if (STYLE[style]) {
+                     scope.style = STYLE[style];
+                     //controller.style = STYLE[style];
+                  } else {
+                     console.warn('unknown style', style);
+                  }
                }
             }
          }

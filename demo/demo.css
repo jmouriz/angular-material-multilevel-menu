@@ -2,6 +2,14 @@ md-sidenav {
    position: static;
 }
 
+md-panel {
+   display: block !important;
+}
+
+md-bottom-sheet {
+   overflow: hidden;
+}
+
 .content {
    padding: 16px;
 }

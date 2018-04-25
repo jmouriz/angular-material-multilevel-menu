@@ -24,10 +24,11 @@
       </md-toolbar>
       <md-content layout="row" flex>
          <md-sidenav class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left">
-            <md-multi-level-menu md-title="Main"
+            <md-multi-level-menu id="primary"
+                                 md-title="Main"
                                  md-back="Previous"
                                  md-breadcrumb="false"
-               md-style-accordion>
+                                 md-style-accordion>
             </md-multi-level-menu>
             <md-divider></md-divider>
             <md-panel layout="column" layout-margin layout-padding>
@@ -42,9 +43,21 @@
                   <input type="number" ng-model="count" aria-label="count"></input>
                </md-input-container>
                <md-button class="md-raised md-primary" ng-click="test()" layout-fill>Dynamic test</md-button>
+               <md-divider></md-divider>
+               <md-button class="md-raised md-primary" ng-click="menu()" layout-fill>Bottom bar</md-button>
             </md-panel>
          </md-sidenav>
-         <md-content ng-view flex></md-content>
+         <md-content ng-view flex>
+            <script type="text/ng-template" id="bottom-sheet-template">
+               <md-bottom-sheet class="md-list">
+                  <md-multi-level-menu id="secondary"
+                                       md-back="Back"
+                                       md-breadcrumb="false"
+                                       md-style-replace>
+                  </md-multi-level-menu>
+               </md-bottom-sheet>
+            </script>
+         </md-content>
       </md-content>
       <script src="https://unpkg.com/jquery@^3.2.1/dist/jquery.min.js"></script>
       <script src="https://unpkg.com/angular@^1.6.5/angular.min.js"></script>
@@ -61,7 +74,8 @@
       <script src="https://unpkg.com/prismjs/components/prism-bash.min.js"></script>
       <script src="https://unpkg.com/marked/lib/marked.js"></script>
       <script src="https://unpkg.com/angular-marked/dist/angular-marked.min.js"></script>
-      <script src="angular-material-multilevel-menu.min.js"></script>
+      <!-- script src="angular-material-multilevel-menu.min.js"></script -->
+      <script src="source/angular-material-multilevel-menu.js"></script>
       <script src="demo/demo.js"></script>
    </body>
 </html>
