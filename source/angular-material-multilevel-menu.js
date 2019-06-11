@@ -1,5 +1,3 @@
-window.$debug = undefined;
-
 (function(window, angular, undefined) {
    'use strict';
 
@@ -113,6 +111,7 @@ window.$debug = undefined;
             return menu.breadcrumb;
          }
          menu.breadcrumb = breadcrumb;
+         $rootScope.$broadcast('reset');
       };
 
       $this.style = function(style) {
@@ -131,6 +130,9 @@ window.$debug = undefined;
       };
 
       $this.get = function(id) {
+         if (id == undefined) {
+            return menu.items;
+         }
          return walk(menu.items[menu.id], function(item) {
             return item.id && item.id == id;
          });
@@ -162,7 +164,6 @@ window.$debug = undefined;
             };
          
             $scope.reset = function() {
-               console.log('stored id:', $scope.id);
                $scope.breadcrumb = menu.breadcrumb;
                $scope.style = menu.style;
                $scope.STYLE = STYLE;
@@ -174,7 +175,6 @@ window.$debug = undefined;
             };
          
             $scope.click = function(item) {
-               console.log($scope.id);
                if (item.items) {
                   if ($scope.style == STYLE.REPLACE) {
                      var widget = angular.element('md-list.menu#' + $scope.id);
@@ -224,7 +224,6 @@ window.$debug = undefined;
          scope: {},
          link: {
             pre: function(scope, element, attributes, controller) {
-               console.log('link', attributes.id);
                scope.id = attributes.id || Math.random().toString(36).substr(2, 5);
                scope.title = attributes.mdTitle || 'Menu';
                scope.previous = attributes.mdBack || 'Back';
@@ -252,4 +251,4 @@ window.$debug = undefined;
          }
       };
    }]);
-})(window, window.angular, undefined);
+}).call(this, window, window.angular, undefined);

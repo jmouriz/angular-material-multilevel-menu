@@ -4,7 +4,7 @@ demo.config(['menuProvider', function(menuProvider) {
    menuProvider.items('primary', [{
       label: 'Documentation',
       icon: 'import_contacts',
-      link: 'demo/readme',
+      link: 'demo/views/readme',
       color: 'blue'
    }, {
       id: 'item-1',
@@ -59,7 +59,7 @@ demo.config(['menuProvider', function(menuProvider) {
    menuProvider.items('secondary', [{
       label: 'Documentation X',
       icon: 'import_contacts',
-      link: 'demo/readme',
+      link: 'demo/views/readme',
       color: 'blue'
    }, {
       id: 'item-1',
@@ -162,9 +162,11 @@ demo.controller('Demo', ['$scope', '$menu', '$mdSidenav', '$mdBottomSheet', func
    };
 
    $menu.callback(function(item) {
-      console.log('You are going to', item.link);
       $scope.toggle();
-      $mdBottomSheet.hide();
+      if (item.link) {
+         console.log('You are going to', item.link);
+         $mdBottomSheet.hide();
+      }
    });
 
    $mdSidenav('left', true).then(function(instance) {

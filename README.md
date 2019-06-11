@@ -19,6 +19,10 @@ Download the package:
 yarn add angular-material-multilevel-menu
 ```
 
+## Dependencies
+
+TODO
+
 ## Usage
 
 In your document head, include:
@@ -110,3 +114,15 @@ application.controller('Controller', ['$menu', function($menu) {
    });
 }]);
 ```
+
+## Development install
+
+```
+git clone https://github.com/jmouriz/angular-material-multilevel-menu.git
+cd angular-material-multilevel-menu
+yarn install
+cd source
+make
+```
+
+TODO
