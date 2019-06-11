@@ -1,0 +1,13 @@
+<div class=menu-container ng-init=reset()><div ng-if="style == STYLE.REPLACE"><md-toolbar ng-if=breadcrumb><div class=md-toolbar-tools><md-truncate class=md-subhead><span ng-repeat="menu in stack"><a class=breadcrumb href ng-click=back($index)>{{menu.label || title}}</a><ng-md-icon icon=chevron_right></ng-md-icon></span><span>{{current.label || title}}</span></md-truncate></div></md-toolbar><md-list id={{id}} class="body menu {{animation}}"><md-list-item ng-if="!breadcrumb && stack.length" ng-click=back()><ng-md-icon icon=chevron_left></ng-md-icon><span flex>{{previous || current.label}}</span></md-list-item><md-list-item ng-repeat="item in current.items" ng-click=click(item) ng-if=!item.hidden ng-style="{color: item.color}"><ng-md-icon icon={{item.icon}} ng-if=item.icon></ng-md-icon><span flex>{{item.label}}</span><md-badge ng-if=item.badge>{{item.badge}}</md-badge><ng-md-icon icon=chevron_right ng-if=item.items></ng-md-icon></md-list-item></md-list></div><div ng-if="style == STYLE.ACCORDION"><script type=text/ng-template id=item><md-list-item ng-click="click(item)" ng-if="!item.hidden" ng-style="{color: item.color}">
+            <ng-md-icon icon="{{item.icon}}" ng-if="item.icon"></ng-md-icon>
+            <span flex>{{item.label}}</span>
+            <md-badge ng-if="item.badge">{{item.badge}}</md-badge>
+            <ng-md-icon icon="{{item.expanded ? 'expand_less' : 'chevron_right'}}" options='{"rotation": "none", "duration": 500}'
+                        ng-if="item.items">
+            </ng-md-icon>
+         </md-list-item>
+         <div flex ng-include="'submenu'" ng-if="item.items"></div></script><script type=text/ng-template id=submenu><md-list class="body submenu slide" ng-if="item.expanded">
+            <div flex ng-repeat="item in item.items">
+               <div ng-include="'item'">
+            </div>
+         </md-list></script><md-list class="body menu"><div flex ng-repeat="item in current.items"><div ng-include="'item'"></div></div></md-list></div></div>
