@@ -1,3 +1,5 @@
+var $DEBUG = {};
+
 var demo = angular.module('Demo', ['ngMaterial', 'ngMdMultiLevelMenu', 'ngMdBadge', 'ngRoute', 'hc.marked']);
 
 demo.config(['menuProvider', function(menuProvider) {
@@ -138,7 +140,8 @@ demo.controller('Demo', ['$scope', '$menu', '$mdSidenav', '$mdBottomSheet', func
    };
 
    $scope.test = function() {
-      var item = $menu.get('item-4');
+      var item = $menu.get('primary', 'item-4');
+      $DEBUG.menu = $menu;
       if (item.items) {
          item.items = undefined;
       } else {

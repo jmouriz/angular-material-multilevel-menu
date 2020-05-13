@@ -129,12 +129,15 @@
          menu.callback = callback;
       };
 
-      $this.get = function(id) {
+      $this.get = function(id, item) {
          if (id == undefined) {
             return menu.items;
          }
-         return walk(menu.items[menu.id], function(item) {
-            return item.id && item.id == id;
+         if (item == undefined) {
+            return menu.items[id];
+         }
+         return walk(menu.items[id], function(node) {
+            return node.id && node.id == item;
          });
       };
    }]);

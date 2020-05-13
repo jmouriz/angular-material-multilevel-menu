@@ -6,12 +6,11 @@
       <title>AngularJS Material Multi Level Menu Demo</title>
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto" />
-      <link rel="stylesheet" href="https://unpkg.com/angular-material@^1.1.4/angular-material.min.css" />
-      <link rel="stylesheet" href="https://unpkg.com/angular-material-icons@^0.7.1/angular-material-icons.css" />
-      <link rel="stylesheet" href="https://unpkg.com/angular-material-badge@^1.2.1/angular-material-badge.min.css" />
+      <link rel="stylesheet" href="https://unpkg.com/angular-material@1.1.4/angular-material.min.css" />
+      <link rel="stylesheet" href="https://unpkg.com/angular-material-icons@0.7.1/angular-material-icons.css" />
+      <link rel="stylesheet" href="https://unpkg.com/angular-material-badge@1.2.1/angular-material-badge.min.css" />
       <link rel="stylesheet" href="https://unpkg.com/prismjs/themes/prism.css" />
-      <link rel="stylesheet" href="build/angular-material-multilevel-menu.min.css" />
-      <!-- link rel="stylesheet" href="source/angular-material-multilevel-menu.css" / -->
+      <link rel="stylesheet" href="source/angular-material-multilevel-menu.css" />
       <link rel="stylesheet" href="demo/resources/styles/demo.css" />
    </head>
    <body ng-controller="Demo" layout="column" ng-cloak>
@@ -33,19 +32,19 @@
             </md-multi-level-menu>
             <md-divider></md-divider>
             <md-panel layout="column" layout-margin layout-padding>
-               <md-input-container layout-fill>
+               <md-input-container>
                   <md-select ng-model="style" aria-label="style">
                      <md-option ng-value="1">Replace</md-option>
                      <md-option ng-value="2">Accordion</md-option>
                   </md-select>
                </md-input-container>
                <md-switch ng-model="breadcrumb" ng-disabled="style == 2">Show breadcrumb</md-switch>
-               <md-input-container layout-fill>
+               <md-input-container>
                   <input type="number" ng-model="count" aria-label="count"></input>
                </md-input-container>
-               <md-button class="md-raised md-primary" ng-click="test()" layout-fill>Dynamic test</md-button>
+               <md-button class="md-raised md-primary" ng-click="test()">Dynamic test</md-button>
                <md-divider></md-divider>
-               <md-button class="md-raised md-primary" ng-click="menu()" layout-fill>Bottom bar</md-button>
+               <md-button class="md-raised md-primary" ng-click="menu()">Bottom bar</md-button>
             </md-panel>
          </md-sidenav>
          <md-content ng-view flex>
@@ -60,21 +59,21 @@
             </script>
          </md-content>
       </md-content>
-      <script src="https://unpkg.com/jquery@^3.2.1/dist/jquery.min.js"></script>
-      <script src="https://unpkg.com/angular@^1.6.5/angular.min.js"></script>
-      <script src="https://unpkg.com/angular-aria@^1.6.5/angular-aria.min.js"></script>
-      <script src="https://unpkg.com/angular-animate@^1.6.5/angular-animate.min.js"></script>
-      <script src="https://unpkg.com/angular-material@^1.1.4/angular-material.min.js"></script>
-      <script src="https://unpkg.com/angular-material-icons@^0.7.1/angular-material-icons.min.js"></script>
-      <script src="https://unpkg.com/angular-material-badge@^1.2.1/angular-material-badge.min.js"></script>
-      <script src="https://unpkg.com/angular-route@^1.6.6/angular-route.min.js"></script>
+      <script src="https://unpkg.com/jquery@3.2.1/dist/jquery.min.js"></script>
+      <script src="https://unpkg.com/angular@1.6.5/angular.min.js"></script>
+      <script src="https://unpkg.com/angular-aria@1.6.5/angular-aria.min.js"></script>
+      <script src="https://unpkg.com/angular-animate@1.6.5/angular-animate.min.js"></script>
+      <script src="https://unpkg.com/angular-material@1.1.4/angular-material.min.js"></script>
+      <script src="https://unpkg.com/angular-material-icons@0.7.1/angular-material-icons.min.js"></script>
+      <script src="https://unpkg.com/angular-material-badge@1.2.1/angular-material-badge.min.js"></script>
+      <script src="https://unpkg.com/angular-route@1.6.6/angular-route.min.js"></script>
       <script src="https://unpkg.com/angular-marked/dist/angular-marked.min.js"></script>
-      <script src="https://unpkg.com/svg-morpheus@^0.3.0/compile/minified/svg-morpheus.js"></script>
+      <script src="https://unpkg.com/marked/marked.min.js"></script>
+      <script src="https://unpkg.com/svg-morpheus@0.3.0/compile/minified/svg-morpheus.js"></script>
       <script src="https://unpkg.com/prismjs/prism.js" data-manual></script>
       <script src="https://unpkg.com/prismjs/components/prism-javascript.min.js"></script>
       <script src="https://unpkg.com/prismjs/components/prism-markup.min.js"></script>
       <script src="https://unpkg.com/prismjs/components/prism-bash.min.js"></script>
-      <script src="build/angular-material-multilevel-menu.min.js"></script>
       <script src="source/angular-material-multilevel-menu.js"></script>
       <script src="demo/controllers/demo.js"></script>
    </body>

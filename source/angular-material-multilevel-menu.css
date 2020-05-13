@@ -1,6 +1,13 @@
+.menu-container {
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+}
+
 .menu {
    position: relative;
    width: 100%;
+   min-height: 100%;
    left: 0;
    clip-path: inset(0 0 0 0);
 }
@@ -10,7 +17,7 @@
 }
 
 .menu.left {
-	left: -100%;
+   left: -100%;
    clip-path: inset(0 0 0 100%);
 }
 
@@ -24,34 +31,34 @@
 }
 
 .submenu.slide {
-	position: relative;
-	overflow: hidden;
+   position: relative;
+   overflow: hidden;
 }
 
 .submenu.slide.ng-enter {
-	animation: 1.35s down;
+   animation: 1.35s down;
 }
 
 .submenu.slide.ng-leave {
-	animation: .35s up;
+   animation: .35s up;
 }
 
 @keyframes down {
-	from {
-		max-height: 0;
-	}
-	to {
-		max-height: 100vh;
-	}
+   from {
+      max-height: 0;
+   }
+   to {
+      max-height: 100vh;
+   }
 }
 
 @keyframes up {
-	from {
-		max-height: 100vh;
-	}
-	to {
-		max-height: 0;
-	}
+   from {
+      max-height: 100vh;
+   }
+   to {
+      max-height: 0;
+   }
 }
 
 a.breadcrumb,
